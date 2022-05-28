@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import './MyDecks.css'
 
-type Props = any
+type Props = {
+  test: string;
+}
 type State = {
-  test: string
+  test: string;
 };
 
-class MyDecks extends React.Component {
+class MyDecks extends Component<Props, State> {
   constructor(props) {
     super(props);
     console.log('my decks built')
-    this.state = {
-
-    }
+    // this.state = {
+    //
+    // }
   }
 
   render() {
