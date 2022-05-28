@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import './CreateDeck.css'
+import Card from './Card'
 
 type Props = any
 // type State = {
@@ -10,13 +11,14 @@ type Props = any
 //   search: string
 // };
 
-class CreateDeck extends React.Component<{}, { search: string, deck: object, currentCard: object } > {
+class CreateDeck extends React.Component<{}, { search: string, deck: object, currentCard: object, isWord: boolean } > {
   constructor(props) {
     super(props);
     this.state = {
       deck: {},
       currentCard: {},
-      search: ''
+      search: '',
+      isWord: false
     }
   }
 
@@ -29,11 +31,15 @@ class CreateDeck extends React.Component<{}, { search: string, deck: object, cur
     event.preventDefault()
     fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => this.setState({ currentCard: data, isWord: true }))
     .catch(err => console.log("ERROR"))
   }
 
   render() {
+    // const searchedWord: string = this.state.currentCard[0].word
+    // const definition: string = this.state.currentCard[0].meanings[0].definitions[0].definition
+
+
     return (
       <div>
       <Link to="/my-decks">My Decks</Link>
@@ -41,6 +47,7 @@ class CreateDeck extends React.Component<{}, { search: string, deck: object, cur
         <input type="text" placeholder="Search For A Word" className="word-search-input" onChange={event => this.handleChange(event)} />
         <button className="word-search-button" onClick={(event) => this.wordSearch(this.state.search, event)}>Search</button>
       </form>
+      {this.state.isWord && <Card word={this.state.currentCard[0].word} definition={this.state.currentCard[0].meanings[0].definitions[0].definition} />}
       </div>
     )
   }

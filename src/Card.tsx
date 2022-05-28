@@ -1,9 +1,12 @@
 import React from 'react'
 import './Card.css'
 
-function Card() {
+function Card({ word, definition }) {
   return (
-    <h1>hello</h1>
+    <div>
+    <h1>{word}</h1>
+    <p>{definition}</p>
+    </div>
   )
 }
 
