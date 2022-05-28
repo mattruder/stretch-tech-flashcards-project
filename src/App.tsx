@@ -1,27 +1,58 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import MyDecks from './MyDecks'
+import CreateDeck from './CreateDeck'
+import Nav from './Nav'
 
-class App extends Component {
+type Props = any
+type State = {
+  // test: string
+};
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      // test: "this is a string"
+    }
+  }
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <main>
+        <Nav />
+        <BrowserRouter>
+        <Link to="/my-decks">My Decks</Link>
+        <Link to="/create-new-deck">Create New Deck</Link>
+        <Switch>
+        <Route
+          exact path="/my-decks"
+          component={MyDecks}
+
+
+        />
+        <Route
+          exact path="/create-new-deck"
+          component={CreateDeck}
+        />
+        <Route
+          exact path="/"
+          render={() =>
+              <div className="below-navbar-content">
+
+              </div>
+            }
+        />
+        </Switch>
+        </BrowserRouter>
+
+
+
+      </main>
     );
   }
 
