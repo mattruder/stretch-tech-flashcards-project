@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import './Nav.css'
+
+type Props = any
 
 function Nav() {
   return (
-    <h1>This is the nav</h1>
+    <Link to="/">Flashcards</Link>
   )
 }
 

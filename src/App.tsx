@@ -26,8 +26,7 @@ class App extends React.Component {
       <main>
         <Nav />
         <BrowserRouter>
-        <Link to="/my-decks">My Decks</Link>
-        <Link to="/create-new-deck">Create New Deck</Link>
+
         <Switch>
         <Route
           exact path="/my-decks"
@@ -41,10 +40,14 @@ class App extends React.Component {
         />
         <Route
           exact path="/"
-          render={() =>
+          render={() => {
+            return (
               <div className="below-navbar-content">
-
+              <Link to="/my-decks">My Decks</Link>
+              <Link to="/create-new-deck">Create New Deck</Link>
               </div>
+            )
+              }
             }
         />
         </Switch>
