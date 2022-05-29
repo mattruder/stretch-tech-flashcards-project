@@ -2,29 +2,48 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import './CreateDeck.css'
 import Card from './Card'
+import { textSpanIntersectsWith } from 'typescript';
 
-type Props = any
-// type State = {
-//   test: string,
-//   deck: object,
-//   currentCard: object,
-//   search: string
-// };
 
-class CreateDeck extends React.Component<{}, { search: string, deck: (object)[], currentWord: string, currentDefinition: string, isWord: boolean } > {
+type State = {
+  deck: {
+    name: string;
+    cards: object[];
+    numberOfCards: number
+  };
+  currentCard: {
+    word: string;
+    definition: string;
+  }
+  search: string;
+  isWord: boolean;
+}
+
+class CreateDeck extends React.Component<{}, State> {
   constructor(props) {
     super(props);
     this.state = {
-      deck: [],
-      currentWord: '',
-      currentDefinition: '',
+      deck: {
+        name: '',
+        cards: [],
+        numberOfCards: this.state.deck.cards.length
+      },
+      currentCard: {
+        word: '',
+        definition: ''
+      },
       search: '',
       isWord: false
     }
   }
 
-  handleChange = (event) => {
+  addCardToDeck(card) {
+    this.state.deck.cards.push(card)
+    console.log(this.state.deck)
+    this.setState({ currentCard: { word: '', definition: '' }, isWord: false })
+  }
 
+  handleChange = (event) => {
    this.setState({ search: event.target.value })
  }
 
@@ -32,19 +51,8 @@ class CreateDeck extends React.Component<{}, { search: string, deck: (object)[],
     event.preventDefault()
     fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
     .then(response => response.json())
-    .then(data => this.setState({ currentWord: data[0].word, currentDefinition: data[0].meanings[0].definitions[0].definition, isWord: true, search: '' }))
+    .then(data => this.setState({ currentCard: { word: data[0].word, definition: data[0].meanings[0].definitions[0].definition }, isWord: true, search: '' }))
     .catch(err => console.log("ERROR"))
-  }
-
-  addCardToDeck(word, definition) {
-    const wordObject = {
-      word: word,
-      definition: definition
-    }
-
-    this.state.deck.push(wordObject)
-    console.log(this.state.deck)
-    this.setState({ currentWord: '', currentDefinition: '', isWord: false })
   }
 
   render() {
@@ -58,9 +66,9 @@ class CreateDeck extends React.Component<{}, { search: string, deck: (object)[],
       <form>
         <input type="text" value={this.state.search} placeholder="Search For A Word" className="word-search-input" onChange={event => this.handleChange(event)} />
         <button className="word-search-button" onClick={(event) => this.wordSearch(this.state.search, event)}>Search</button>
+        <button className="add-card-button" onClick={ () => this.addCardToDeck(this.state.currentCard)}>Add Card</button>
       </form>
-      {this.state.isWord && <Card word={this.state.currentWord} definition={this.state.currentDefinition} />}
-      <button className="addCard" onClick={() => this.addCardToDeck(this.state.currentWord, this.state.currentDefinition)}>Add Card To Deck</button>
+      {this.state.isWord && <Card word={this.state.currentCard.word} definition={this.state.currentCard.definition} />}
       </div>
     )
   }
