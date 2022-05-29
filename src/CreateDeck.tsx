@@ -11,20 +11,13 @@ type Props = any
 //   search: string
 // };
 
-type currentCard = {
-  word?: string;
-  definition?: string;
-}
-
-class CreateDeck extends React.Component<{}, { search: string, deck: (object)[], currentCard: object,  isWord: boolean } > {
+class CreateDeck extends React.Component<{}, { search: string, deck: (object)[], currentWord: string, currentDefinition: string, isWord: boolean } > {
   constructor(props) {
     super(props);
     this.state = {
       deck: [],
-      currentCard: {
-        word: '',
-        definition: ''
-      },
+      currentWord: '',
+      currentDefinition: '',
       search: '',
       isWord: false
     }
@@ -39,8 +32,19 @@ class CreateDeck extends React.Component<{}, { search: string, deck: (object)[],
     event.preventDefault()
     fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
     .then(response => response.json())
-    .then(data => this.setState({ currentCard: { word: data[0].word, definition: data[0].meanings[0].definitions[0].definition }, isWord: true, search: '' }))
+    .then(data => this.setState({ currentWord: data[0].word, currentDefinition: data[0].meanings[0].definitions[0].definition, isWord: true, search: '' }))
     .catch(err => console.log("ERROR"))
+  }
+
+  addCardToDeck(word, definition) {
+    const wordObject = {
+      word: word,
+      definition: definition
+    }
+
+    this.state.deck.push(wordObject)
+    console.log(this.state.deck)
+    this.setState({ currentWord: '', currentDefinition: '', isWord: false })
   }
 
   render() {
@@ -55,7 +59,8 @@ class CreateDeck extends React.Component<{}, { search: string, deck: (object)[],
         <input type="text" value={this.state.search} placeholder="Search For A Word" className="word-search-input" onChange={event => this.handleChange(event)} />
         <button className="word-search-button" onClick={(event) => this.wordSearch(this.state.search, event)}>Search</button>
       </form>
-      {this.state.isWord && <Card word={this.state.currentCard.word} definition={this.state.currentCard.definition} />}
+      {this.state.isWord && <Card word={this.state.currentWord} definition={this.state.currentDefinition} />}
+      <button className="addCard" onClick={() => this.addCardToDeck(this.state.currentWord, this.state.currentDefinition)}>Add Card To Deck</button>
       </div>
     )
   }
