@@ -3,12 +3,17 @@ import { Link } from 'react-router-dom'
 import './CreateDeck.css'
 import Card from './Card'
 import { textSpanIntersectsWith } from 'typescript';
+import { stringify } from 'querystring';
 
 
 type State = {
   deck: {
     name: string;
-    cards: object[];
+    cards: 
+    { word: string;
+      definition: string;
+    }[]
+    ;
     // numberOfCards: number
   };
   currentCard: {
@@ -39,9 +44,19 @@ class CreateDeck extends React.Component<{}, State> {
 
   addCardToDeck(card, event) {
     event.preventDefault()
-    this.state.deck.cards.push(card)
-    console.log(this.state.deck)
-    this.setState({ currentCard: { word: '', definition: '' }, isWord: false })
+    const words = this.state.deck.cards.map(card => card.word)
+    console.log(this.state.deck.cards, 'allcards')
+    console.log(card, 'card')
+    console.log(this.state.deck.cards.includes(card))
+
+
+    if (!words.includes(card.word)) {
+      this.state.deck.cards.push(card)
+      console.log(this.state.deck)
+      this.setState({ currentCard: { word: '', definition: '' }, isWord: false })
+    } else {
+      return
+    }
   }
 
   handleNameChange = (event) => {
