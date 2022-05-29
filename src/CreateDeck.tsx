@@ -9,7 +9,7 @@ type State = {
   deck: {
     name: string;
     cards: object[];
-    numberOfCards: number
+    // numberOfCards: number
   };
   currentCard: {
     word: string;
@@ -26,7 +26,7 @@ class CreateDeck extends React.Component<{}, State> {
       deck: {
         name: '',
         cards: [],
-        numberOfCards: this.state.deck.cards.length
+        // numberOfCards: this.state.deck.cards.length
       },
       currentCard: {
         word: '',
@@ -37,11 +37,18 @@ class CreateDeck extends React.Component<{}, State> {
     }
   }
 
-  addCardToDeck(card) {
+  addCardToDeck(card, event) {
+    event.preventDefault()
     this.state.deck.cards.push(card)
     console.log(this.state.deck)
     this.setState({ currentCard: { word: '', definition: '' }, isWord: false })
   }
+
+  handleNameChange = (event) => {
+    event.preventDefault()
+    this.setState({ deck: {name: event.target.value, cards: this.state.deck.cards } })
+  }
+  // , numberOfCards: this.state.deck.cards.length
 
   handleChange = (event) => {
    this.setState({ search: event.target.value })
@@ -65,8 +72,9 @@ class CreateDeck extends React.Component<{}, State> {
       <Link to="/my-decks">My Decks</Link>
       <form>
         <input type="text" value={this.state.search} placeholder="Search For A Word" className="word-search-input" onChange={event => this.handleChange(event)} />
+        <input type='text' value={this.state.deck.name} placeholder="Name this deck" className="name-this-deck" onChange={event => this.handleNameChange(event)}/>
         <button className="word-search-button" onClick={(event) => this.wordSearch(this.state.search, event)}>Search</button>
-        <button className="add-card-button" onClick={ () => this.addCardToDeck(this.state.currentCard)}>Add Card</button>
+        <button className="add-card-button" onClick={ (event) => this.addCardToDeck(this.state.currentCard, event)}>Add Card</button>
       </form>
       {this.state.isWord && <Card word={this.state.currentCard.word} definition={this.state.currentCard.definition} />}
       </div>
