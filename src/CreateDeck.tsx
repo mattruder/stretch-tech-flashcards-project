@@ -5,6 +5,9 @@ import Card from './Card'
 import { textSpanIntersectsWith } from 'typescript';
 import { stringify } from 'querystring';
 
+interface CreateDeckProps {
+  addDeck:  (deck : { name: string, cards: {word: string, definition: string }[] }, event)  => void
+}
 
 type State = {
   deck: {
@@ -24,8 +27,8 @@ type State = {
   isWord: boolean;
 }
 
-class CreateDeck extends React.Component<{}, State> {
-  constructor(props) {
+class CreateDeck extends React.Component<CreateDeckProps, State> {
+  constructor(props: CreateDeckProps) {
     super(props);
     this.state = {
       deck: {
@@ -88,8 +91,9 @@ class CreateDeck extends React.Component<{}, State> {
       <form>
         <input type="text" value={this.state.search} placeholder="Search For A Word" className="word-search-input" onChange={event => this.handleChange(event)} />
         <input type='text' value={this.state.deck.name} placeholder="Name this deck" className="name-this-deck" onChange={event => this.handleNameChange(event)}/>
-        <button className="word-search-button" onClick={(event) => this.wordSearch(this.state.search, event)}>Search</button>
-        <button className="add-card-button" onClick={ (event) => this.addCardToDeck(this.state.currentCard, event)}>Add Card</button>
+        <button className="word-search-button"  onClick={(event) => this.wordSearch(this.state.search, event)}>Search</button>
+        <button className="add-card-button"  onClick={ (event) => this.addCardToDeck(this.state.currentCard, event)}>Add Card</button>
+        <button className="add-deck-button"  onClick={ (event) => this.props.addDeck(this.state.deck, event)}>Add Deck</button>
       </form>
       {this.state.isWord && <Card word={this.state.currentCard.word} definition={this.state.currentCard.definition} />}
       </div>
