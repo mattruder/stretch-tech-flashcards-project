@@ -1,9 +1,9 @@
 import React from 'react'
 import './Deck.css'
 
-function Deck() {
+function Deck({ deck }) {
   return (
-    <h1>hello</h1>
+    <h1>{deck.name}</h1>
   )
 }
 

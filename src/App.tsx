@@ -9,9 +9,14 @@ import Nav from './Nav'
 
 type Props = any
 type State = {
-  allDecks: {}[]
+  allDecks: Deck[]
   // test: string
 };
+
+type Deck = {
+  name: string;
+  cards: Card[]
+}
 
 type Card = {word: string, definition: string}
 
@@ -21,7 +26,7 @@ interface CreateDeckProps {
 
 class App extends React.Component <{}, State> {
 
-  
+
   constructor(props) {
     super(props)
     this.state = {
@@ -48,13 +53,13 @@ class App extends React.Component <{}, State> {
     return (
       <main>
         <Nav />
-        
+
         <BrowserRouter>
 
         <Switch>
         <Route
           exact path="/my-decks"
-          component={MyDecks}
+          render={() => <MyDecks allDecks={this.state.allDecks} />}
 
 
         />
@@ -86,3 +91,6 @@ class App extends React.Component <{}, State> {
 }
 
 export default App;
+
+
+// in my decks, we'll pass down All Decks from app, and iterate through them, and render a Deck for each deck.
