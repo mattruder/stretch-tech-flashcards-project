@@ -1,31 +1,50 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import './MyDecks.css'
+import Deck from './Deck'
 
-type Props = {
-  test: string;
-}
-type State = {
-  test: string;
-};
+// type Props = {
+//   allDecks: ADeck[]
+// }
+// type State = {
+//   test: string;
+// };
+//
+// type ADeck = {
+//   name: string;
+//   cards: Card[]
+// }
+//
+// interface DisplayDecksMethod {
+//   displayDecks: Props
+// }
+//
+// type Card = {word: string, definition: string}
 
-class MyDecks extends Component<Props, State> {
-  constructor(props) {
-    super(props);
-    console.log('my decks built')
-    // this.state = {
-    //
-    // }
-  }
+function MyDecks({ allDecks }) {
+  // static props: any;
+  // constructor(props) {
+  //   super(props);
+  //   console.log('my decks built')
+  //   // this.state = {
+  //   //
+  //   // }
+  // }
 
-  render() {
+  const displayDecks = allDecks.map((deck) => {
+      return (
+        <Deck deck={deck}/>
+      )
+    })
+
     return (
       <div>
-      <h1>My Decks Area</h1>
+      <h1>test</h1>
+      <div>{displayDecks}</div>
       <Link to="/create-new-deck">Create New Deck</Link>
       </div>
     )
   }
-}
+
 
 export default MyDecks
