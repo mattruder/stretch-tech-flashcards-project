@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import MyDecks from './MyDecks'
 import CreateDeck from './CreateDeck'
 import Nav from './Nav'
+import ViewCards from './ViewCards'
 
 type Props = any
 type State = {
@@ -67,6 +68,17 @@ class App extends React.Component <{}, State> {
           exact path="/create-new-deck"
           render={() => <CreateDeck addDeck={this.addDeck} />}
         />
+        <Route
+            exact path="/:deckname/view-cards"
+            render={({match}) => {
+              const deckname = match.params.deckname
+              const deck = this.state.allDecks.find((deck) => {
+                return deck.name === deckname
+              })
+              console.log(deck)
+              return <ViewCards deck={deck} />
+            }}
+          />
         <Route
           exact path="/"
           render={() => {
