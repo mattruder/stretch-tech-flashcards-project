@@ -35,22 +35,64 @@ class App extends React.Component <{}, State> {
       // test: "this is a string"
     }
     this.addDeck = this.addDeck.bind(this)
+    this.deleteWord = this.deleteWord.bind(this)
   }
+
+// Put into the else if: if the deck name matches a deck in app state decks we could use the indexOf
+// to find the index position of the deck or we could use the second argument (index) in the forEach iterator
+// decks.forEach((deck, index))
+// if 
 
   addDeck = (deck : { name: string, cards: Card[] }, event) => {
     // this.state.allDecks.push(deck)
     event.preventDefault()
-
-    this.setState({
-      allDecks: [...this.state.allDecks, deck]
-    })
+    if (!this.state.allDecks.includes(deck)) {
+      this.setState({
+        allDecks: [...this.state.allDecks, deck]
+      })
+    }
+    
     console.log(this.state.allDecks)
   }
 
+  deleteWord = (word: string, deck: Deck) => {
+    const filteredCards = deck.cards.filter(card => {
+       return card.word !== word
+       
+       })
+       let testState = this.state.allDecks
+       console.log(testState, 'this is testState')
+       const newDeck: Deck = {
+         name: deck.name,
+         cards: filteredCards
+       }
+       
+       this.state.allDecks.forEach((item, i) => {
+         if (item.name === deck.name) {
+           testState.splice(i, 1, newDeck)
+         this.setState(
+                {
+                  allDecks: testState
+                }
+         )
+           
+         }
+       })
+      //  this.setState(
+      //    {
+      //      deck: {
+      //        name: this.state.deck.name,
+      //        cards: filteredCards}
+      //    }
+      //  )
+   }
+
   render() {
+    // let testState = this.state
+    // console.log(testState, 'this is testState')
     // let decks = this.state.allDecks.map(deck => {
     //   return deck?.cards[0].word
-    console.log(this.state.allDecks, 'this is all decks')
+    // console.log(this.state.allDecks, 'this is all decks')
     return (
       <main>
         <Nav />
@@ -66,7 +108,7 @@ class App extends React.Component <{}, State> {
         />
         <Route
           exact path="/create-new-deck"
-          render={() => <CreateDeck addDeck={this.addDeck} />}
+          render={() => <CreateDeck addDeck={this.addDeck} myDeck={undefined} deleteWord={this.deleteWord} />}
         />
         <Route
             exact path="/:deckname/view-cards"
@@ -77,6 +119,17 @@ class App extends React.Component <{}, State> {
               })
               console.log(deck)
               return <ViewCards deck={deck} />
+            }}
+            />
+        <Route
+            exact path="/:deckname/edit"
+            render={({match}) => {
+              const deckname = match.params.deckname
+              const deck = this.state.allDecks.find((deck) => {
+                return deck.name === deckname
+              })
+              console.log(deck)
+              return <CreateDeck myDeck={deck} addDeck={this.addDeck} deleteWord={this.deleteWord}/>
             }}
           />
         <Route
