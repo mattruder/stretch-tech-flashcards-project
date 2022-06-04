@@ -5,9 +5,27 @@ import Card from './Card'
 import { textSpanIntersectsWith } from 'typescript';
 import { stringify } from 'querystring';
 
-interface CreateDeckProps {
+interface MyProps {
+  myDeck?: Deck 
   addDeck:  (deck : { name: string, cards: {word: string, definition: string }[] }, event)  => void
+
 }
+
+// interface Props {
+//   deck: Deck
+// }
+
+// interface CreateDeckProps {
+//   addDeck:  (deck : { name: string, cards: {word: string, definition: string }[] }, event)  => void
+// }
+
+type Deck = {
+  name: string;
+  cards: Card[]
+}
+
+type Card = {word: string, definition: string}
+
 
 type State = {
   deck: {
@@ -27,8 +45,9 @@ type State = {
   isWord: boolean;
 }
 
-class CreateDeck extends React.Component<CreateDeckProps, State> {
-  constructor(props: CreateDeckProps) {
+
+class CreateDeck extends React.Component<MyProps, State> {
+  constructor(props: MyProps) {
     super(props);
     this.state = {
       deck: {
@@ -44,6 +63,17 @@ class CreateDeck extends React.Component<CreateDeckProps, State> {
       isWord: false
     }
   }
+
+  componentDidMount = () => {
+    if (this.props.myDeck) {
+      this.setState ({
+        deck: this.props.myDeck
+      })
+      console.log(this.state.deck)
+    }
+  }
+  
+  
 
   addCardToDeck(card, event) {
     event.preventDefault()

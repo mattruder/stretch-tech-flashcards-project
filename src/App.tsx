@@ -66,7 +66,7 @@ class App extends React.Component <{}, State> {
         />
         <Route
           exact path="/create-new-deck"
-          render={() => <CreateDeck addDeck={this.addDeck} />}
+          render={() => <CreateDeck addDeck={this.addDeck} myDeck={undefined} />}
         />
         <Route
             exact path="/:deckname/view-cards"
@@ -77,6 +77,17 @@ class App extends React.Component <{}, State> {
               })
               console.log(deck)
               return <ViewCards deck={deck} />
+            }}
+            />
+        <Route
+            exact path="/:deckname/edit"
+            render={({match}) => {
+              const deckname = match.params.deckname
+              const deck = this.state.allDecks.find((deck) => {
+                return deck.name === deckname
+              })
+              console.log(deck)
+              return <CreateDeck myDeck={deck} addDeck={this.addDeck}/>
             }}
           />
         <Route
