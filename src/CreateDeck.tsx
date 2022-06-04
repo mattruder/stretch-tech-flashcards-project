@@ -69,11 +69,12 @@ class CreateDeck extends React.Component<MyProps, State> {
       this.setState ({
         deck: this.props.myDeck
       })
-      console.log(this.state.deck)
+      console.log('inside componentDidMount', this.state.deck)
     }
   }
   
-  
+  // needs to check if the deck name from the previous query matches the current deck name
+  // and if it doesn't then it needs to reset the state
 
   addCardToDeck(card, event) {
     event.preventDefault()
@@ -83,14 +84,19 @@ class CreateDeck extends React.Component<MyProps, State> {
     console.log(this.state.deck.cards.includes(card))
 
 
+
     if (!words.includes(card.word)) {
-      this.state.deck.cards.push(card)
+      this.state.deck.cards.push(card) 
       console.log(this.state.deck)
       this.setState({ currentCard: { word: '', definition: '' }, isWord: false })
-    } else {
-      return
+    } else if (!words.includes(card.word) && this.props.myDeck === undefined) {
+      this.state.deck.cards.push(card) 
+      console.log(this.state.deck)
+      this.setState({ currentCard: { word: '', definition: '' }, isWord: false })
     }
   }
+// If the deck name changes the previous cards should not follow to the new deck
+// 
 
   handleNameChange = (event) => {
     event.preventDefault()
@@ -113,21 +119,38 @@ class CreateDeck extends React.Component<MyProps, State> {
   render() {
     // const searchedWord: string = this.state.currentCard[0].word
     // const definition: string = this.state.currentCard[0].meanings[0].definitions[0].definition
+    if (this.props.myDeck === undefined) {
+      return (
+        <div>
+        <Link to="/my-decks">My Decks</Link>
+        <form>
+          <input type="text" value={this.state.search} placeholder="Search For A Word" className="word-search-input" onChange={event => this.handleChange(event)} />
+          <input type='text' value={this.state.deck.name} placeholder="Name this deck" className="name-this-deck" onChange={event => this.handleNameChange(event)}/>
+          <button className="word-search-button"  onClick={(event) => this.wordSearch(this.state.search, event)}>Search</button>
+          <button className="add-card-button"  onClick={ (event) => this.addCardToDeck(this.state.currentCard, event)}>Add Card</button>
+          <button className="add-deck-button"  onClick={ (event) => this.props.addDeck(this.state.deck, event)}>Add Deck</button>
+        </form>
+        {this.state.isWord && <Card word={this.state.currentCard.word} definition={this.state.currentCard.definition} />}
+        </div>
+      ) 
+    } else if (this.props.myDeck) {
+      return (
+        <div>
+        <Link to="/my-decks">My Decks</Link>
+        <form>
+          <input type="text" value={this.state.search} placeholder="Search For A Word" className="word-search-input" onChange={event => this.handleChange(event)} />
+          <h1>{this.state.deck.name}</h1>
+          <button className="word-search-button"  onClick={(event) => this.wordSearch(this.state.search, event)}>Search</button>
+          <button className="add-card-button"  onClick={ (event) => this.addCardToDeck(this.state.currentCard, event)}>Add Card</button>
+          <button className="add-deck-button"  onClick={ (event) => this.props.addDeck(this.state.deck, event)}>Add Deck</button>
+        </form>
+        {this.state.isWord && <Card word={this.state.currentCard.word} definition={this.state.currentCard.definition} />}
+        </div>
+      )
+    }
+    console.log('inside render', this.state.deck)
 
-
-    return (
-      <div>
-      <Link to="/my-decks">My Decks</Link>
-      <form>
-        <input type="text" value={this.state.search} placeholder="Search For A Word" className="word-search-input" onChange={event => this.handleChange(event)} />
-        <input type='text' value={this.state.deck.name} placeholder="Name this deck" className="name-this-deck" onChange={event => this.handleNameChange(event)}/>
-        <button className="word-search-button"  onClick={(event) => this.wordSearch(this.state.search, event)}>Search</button>
-        <button className="add-card-button"  onClick={ (event) => this.addCardToDeck(this.state.currentCard, event)}>Add Card</button>
-        <button className="add-deck-button"  onClick={ (event) => this.props.addDeck(this.state.deck, event)}>Add Deck</button>
-      </form>
-      {this.state.isWord && <Card word={this.state.currentCard.word} definition={this.state.currentCard.definition} />}
-      </div>
-    )
+   
   }
 }
 
