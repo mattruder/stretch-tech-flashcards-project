@@ -117,6 +117,15 @@ class CreateDeck extends React.Component<MyProps, State> {
   }
 
   render() {
+    const cardsToDisplay = this.state.deck.cards.map(card => {
+      return (
+        <div>
+          <p>{card.word}</p>
+          <button>X</button>
+        </div>
+
+      )
+    })
     // const searchedWord: string = this.state.currentCard[0].word
     // const definition: string = this.state.currentCard[0].meanings[0].definitions[0].definition
     if (this.props.myDeck === undefined) {
@@ -131,6 +140,7 @@ class CreateDeck extends React.Component<MyProps, State> {
           <button className="add-deck-button"  onClick={ (event) => this.props.addDeck(this.state.deck, event)}>Add Deck</button>
         </form>
         {this.state.isWord && <Card word={this.state.currentCard.word} definition={this.state.currentCard.definition} />}
+        {cardsToDisplay}
         </div>
       ) 
     } else if (this.props.myDeck) {
@@ -145,6 +155,7 @@ class CreateDeck extends React.Component<MyProps, State> {
           <button className="add-deck-button"  onClick={ (event) => this.props.addDeck(this.state.deck, event)}>Add Deck</button>
         </form>
         {this.state.isWord && <Card word={this.state.currentCard.word} definition={this.state.currentCard.definition} />}
+        {cardsToDisplay}
         </div>
       )
     }

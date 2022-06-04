@@ -40,10 +40,12 @@ class App extends React.Component <{}, State> {
   addDeck = (deck : { name: string, cards: Card[] }, event) => {
     // this.state.allDecks.push(deck)
     event.preventDefault()
-
-    this.setState({
-      allDecks: [...this.state.allDecks, deck]
-    })
+    if (!this.state.allDecks.includes(deck)) {
+      this.setState({
+        allDecks: [...this.state.allDecks, deck]
+      })
+    }
+    
     console.log(this.state.allDecks)
   }
 
