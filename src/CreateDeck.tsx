@@ -6,6 +6,7 @@ import { textSpanIntersectsWith } from 'typescript';
 import { stringify } from 'querystring';
 
 interface MyProps {
+  deleteWord: (word: string, deck: Deck) => void
   myDeck?: Deck 
   addDeck:  (deck : { name: string, cards: {word: string, definition: string }[] }, event)  => void
 
@@ -72,6 +73,15 @@ class CreateDeck extends React.Component<MyProps, State> {
       console.log('inside componentDidMount', this.state.deck)
     }
   }
+
+  componentDidUpdate = (prevProps) => {
+    if (this.props.myDeck !== prevProps.myDeck) {
+      this.setState ({
+        deck: this.props.myDeck
+      })
+      console.log('inside componentDidMount', this.state.deck)
+    }
+  }
   
   // needs to check if the deck name from the previous query matches the current deck name
   // and if it doesn't then it needs to reset the state
@@ -116,12 +126,14 @@ class CreateDeck extends React.Component<MyProps, State> {
     .catch(err => console.log("ERROR"))
   }
 
+
+
   render() {
     const cardsToDisplay = this.state.deck.cards.map(card => {
       return (
         <div>
           <p>{card.word}</p>
-          <button>X</button>
+          <button onClick={() => this.props.deleteWord(card.word, this.state.deck)}>X</button>
         </div>
 
       )
