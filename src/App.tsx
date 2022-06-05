@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import MyDecks from './MyDecks'
 import CreateDeck from './CreateDeck'
-import Nav from './Nav'
 import ViewCards from './ViewCards'
+import Nav from './Nav'
 
 type Props = any
 type State = {
@@ -15,11 +14,12 @@ type State = {
 };
 
 type Deck = {
+  key: number;
   name: string;
   cards: Card[]
 }
 
-type Card = {word: string, definition: string}
+type Card = { key: string, word: string, definition: string}
 
 interface CreateDeckProps {
   addDeck:  (deck : { name: string, cards: Card[] })  => void
@@ -28,11 +28,10 @@ interface CreateDeckProps {
 class App extends React.Component <{}, State> {
 
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       allDecks: []
-      // test: "this is a string"
     }
     this.addDeck = this.addDeck.bind(this)
     this.deleteWord = this.deleteWord.bind(this)
@@ -43,16 +42,15 @@ class App extends React.Component <{}, State> {
 // decks.forEach((deck, index))
 // if 
 
-  addDeck = (deck : { name: string, cards: Card[] }, event) => {
+  addDeck = (deck : { key: number, name: string, cards: Card[] }, event) => {
     // this.state.allDecks.push(deck)
     event.preventDefault()
-    if (!this.state.allDecks.includes(deck)) {
+    const newDecks = this.state.allDecks.filter(item => {
+      return item.name !== deck.name
+    })
       this.setState({
-        allDecks: [...this.state.allDecks, deck]
+        allDecks: [...newDecks, deck]
       })
-    }
-    
-    console.log(this.state.allDecks)
   }
 
   deleteWord = (word: string, deck: Deck) => {
@@ -63,6 +61,7 @@ class App extends React.Component <{}, State> {
        let testState = this.state.allDecks
        console.log(testState, 'this is testState')
        const newDeck: Deck = {
+         key: deck.key,
          name: deck.name,
          cards: filteredCards
        }
@@ -95,20 +94,16 @@ class App extends React.Component <{}, State> {
     // console.log(this.state.allDecks, 'this is all decks')
     return (
       <main>
-        <Nav />
-
         <BrowserRouter>
-
+        <Nav />
         <Switch>
         <Route
           exact path="/my-decks"
           render={() => <MyDecks allDecks={this.state.allDecks} />}
-
-
         />
         <Route
           exact path="/create-new-deck"
-          render={() => <CreateDeck addDeck={this.addDeck} myDeck={undefined} deleteWord={this.deleteWord} />}
+          render={() => <CreateDeck key={Date.now()} addDeck={this.addDeck} myDeck={undefined} deleteWord={this.deleteWord} />}
         />
         <Route
             exact path="/:deckname/view-cards"
@@ -117,7 +112,6 @@ class App extends React.Component <{}, State> {
               const deck = this.state.allDecks.find((deck) => {
                 return deck.name === deckname
               })
-              console.log(deck)
               return <ViewCards deck={deck} />
             }}
             />
@@ -129,7 +123,7 @@ class App extends React.Component <{}, State> {
                 return deck.name === deckname
               })
               console.log(deck)
-              return <CreateDeck myDeck={deck} addDeck={this.addDeck} deleteWord={this.deleteWord}/>
+              return <CreateDeck key={Date.now()} myDeck={deck} addDeck={this.addDeck} deleteWord={this.deleteWord}/>
             }}
           />
         <Route
