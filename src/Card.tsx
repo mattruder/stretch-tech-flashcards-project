@@ -3,7 +3,7 @@ import './Card.css'
 
 function Card({ word, definition }) {
   return (
-    <div>
+    <div className="card">
     <h1>{word}</h1>
     <p>{definition}</p>
     </div>
