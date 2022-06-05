@@ -51,4 +51,16 @@ describe("Flashcards App", () => {
     cy.get('.edit-deck-area').should('not.have.value', 'asdfasdfasdf')
   })
 
+  it('User should be able to access the My Decks page from the Create/Edit Decks page', () => {
+    cy.get('#createDeckLink').click()
+    cy.get('#myDecksLinkInCreate').click()
+    .url().should('eq', 'http://localhost:3000/my-decks')
+  })
+
+  it('User should be able to access the Create Decks page from the My Decks page', () => {
+    cy.get('#myDecksLink').click()
+    cy.get('.link-create-deck-from-my-decks').click()
+    .url().should('eq', 'http://localhost:3000/create-new-deck')
+  })
+
 })
