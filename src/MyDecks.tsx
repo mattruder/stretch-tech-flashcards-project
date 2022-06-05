@@ -12,9 +12,9 @@ function MyDecks({ allDecks }) {
     })
 
     return (
-      <div>
-      <div>{displayDecks}</div>
-      <Link to="/create-new-deck">Create New Deck</Link>
+      <div className='my-decks-container'>
+      <div className='my-decks'>{displayDecks}</div>
+      <Link className='link-create-deck-from-my-decks' to="/create-new-deck">Create New Deck</Link>
       </div>
     )
   }

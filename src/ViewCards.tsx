@@ -10,7 +10,7 @@ function ViewCards({ deck }) {
   })
 
   return (
-    <div>
+    <div className="view-all-cards-container">
     {allCards}
     </div>
   )

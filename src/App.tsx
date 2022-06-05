@@ -40,7 +40,7 @@ class App extends React.Component <{}, State> {
 // Put into the else if: if the deck name matches a deck in app state decks we could use the indexOf
 // to find the index position of the deck or we could use the second argument (index) in the forEach iterator
 // decks.forEach((deck, index))
-// if 
+// if
 
   addDeck = (deck : { key: number, name: string, cards: Card[] }, event) => {
     // this.state.allDecks.push(deck)
@@ -56,7 +56,7 @@ class App extends React.Component <{}, State> {
   deleteWord = (word: string, deck: Deck) => {
     const filteredCards = deck.cards.filter(card => {
        return card.word !== word
-       
+
        })
        let testState = this.state.allDecks
        console.log(testState, 'this is testState')
@@ -65,7 +65,7 @@ class App extends React.Component <{}, State> {
          name: deck.name,
          cards: filteredCards
        }
-       
+
        this.state.allDecks.forEach((item, i) => {
          if (item.name === deck.name) {
            testState.splice(i, 1, newDeck)
@@ -74,7 +74,7 @@ class App extends React.Component <{}, State> {
                   allDecks: testState
                 }
          )
-           
+
          }
        })
       //  this.setState(
@@ -131,8 +131,8 @@ class App extends React.Component <{}, State> {
           render={() => {
             return (
               <div className="below-navbar-content">
-              <Link to="/my-decks">My Decks</Link>
-              <Link to="/create-new-deck">Create New Deck</Link>
+              <Link to="/my-decks" className="link-on-homepage" id='myDecksLink'>My Decks</Link>
+              <Link to="/create-new-deck" className="link-on-homepage" id='createDeckLink'>Create New Deck</Link>
               </div>
             )
               }
