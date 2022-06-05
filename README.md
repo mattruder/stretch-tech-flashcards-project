@@ -1,5 +1,5 @@
 
-# Stretch Tech
+# Stretch Tech - TypeScript
 
 - [Introduction](#introduction)
 - [Learning Goals](#learning-goals)
