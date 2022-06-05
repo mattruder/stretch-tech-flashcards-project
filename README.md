@@ -5,7 +5,6 @@
 - [Learning Goals](#learning-goals)
 - [Technologies](#technologies)
 - [Features](#features)
-- [Page Demo](#page-demo)
 - [Future Extensions](#possible-future-extensions)
 - [Set Up](#set-up)
 - [Project Spec](#project-spec)
@@ -38,11 +37,6 @@ What the Deck...? is a flashcard building app utilizing a dictionary API.  It is
 - When the user clicks 'make a deck' they are brought to a deck building page where they can search for words.
 - The user can choose to add a word, with the definition to a deck, name the deck, and save the deck.
 - The user can then view all decks, select and edit that deck by adding more, or removing cards.
-
-
-## Page Demo
-
-![What the Deck...?]()
 
 
 ## Possible Future Extensions
