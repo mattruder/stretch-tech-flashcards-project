@@ -15,7 +15,7 @@ function MyDecks({ allDecks }) {
 
   const displayDecks = allDecks.map((deck) => {
       return (
-        <Deck deck={deck}/>
+        <Deck key={deck.name} deck={deck}/>
       )
     })
 
