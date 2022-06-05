@@ -4,14 +4,6 @@ import './MyDecks.css'
 import Deck from './Deck'
 
 function MyDecks({ allDecks }) {
-  // static props: any;
-  // constructor(props) {
-  //   super(props);
-  //   console.log('my decks built')
-  //   // this.state = {
-  //   //
-  //   // }
-  // }
 
   const displayDecks = allDecks.map((deck) => {
       return (

@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
-import { Route, Switch, BrowserRouter, useHistory } from 'react-router-dom';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import MyDecks from './MyDecks'
 import CreateDeck from './CreateDeck'
-import Nav from './Nav'
 import ViewCards from './ViewCards'
+import Nav from './Nav'
 
 type Props = any
 type State = {
@@ -33,7 +32,6 @@ class App extends React.Component <{}, State> {
     super(props)
     this.state = {
       allDecks: []
-      // test: "this is a string"
     }
     this.addDeck = this.addDeck.bind(this)
     this.deleteWord = this.deleteWord.bind(this)
@@ -47,16 +45,12 @@ class App extends React.Component <{}, State> {
   addDeck = (deck : { key: number, name: string, cards: Card[] }, event) => {
     // this.state.allDecks.push(deck)
     event.preventDefault()
-    if (!this.state.allDecks.includes(deck)) {
+    const newDecks = this.state.allDecks.filter(item => {
+      return item.name !== deck.name
+    })
       this.setState({
-        allDecks: [...this.state.allDecks, deck]
+        allDecks: [...newDecks, deck]
       })
-
-    }
-
-    
-    
-    console.log(this.state.allDecks)
   }
 
   deleteWord = (word: string, deck: Deck) => {
@@ -100,16 +94,12 @@ class App extends React.Component <{}, State> {
     // console.log(this.state.allDecks, 'this is all decks')
     return (
       <main>
-        <Nav />
-
         <BrowserRouter>
-
+        <Nav />
         <Switch>
         <Route
           exact path="/my-decks"
           render={() => <MyDecks allDecks={this.state.allDecks} />}
-
-
         />
         <Route
           exact path="/create-new-deck"
@@ -122,7 +112,6 @@ class App extends React.Component <{}, State> {
               const deck = this.state.allDecks.find((deck) => {
                 return deck.name === deckname
               })
-              console.log(deck)
               return <ViewCards deck={deck} />
             }}
             />

@@ -13,7 +13,7 @@ function AddDeckButton({ addDeck, deck }) {
         <button onClick={(event) => {
             goHome() 
             addDeck(deck, event)
-        }}>Add Deck</button>
+        }}>Save Deck</button>
     </div>
   )
 }
