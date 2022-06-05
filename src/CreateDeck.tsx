@@ -149,21 +149,30 @@ class CreateDeck extends React.Component<MyProps, State> {
     .catch(err => console.log("ERROR"))
   }
 
-
+  deleteWord = (word: string) => {
+   const filteredWords = this.state.deck.cards.filter(card => {
+    return card.word !== word
+    })
+    this.setState({
+      deck: { 
+        key: this.state.deck.key, 
+        name: this.state.deck.name, 
+        cards: filteredWords
+  }})}
 
   render() {
-    const cardsToDisplay = this.state.deck.cards.map(card => {
-      return (
-        <div>
-          <p>{card.word}</p>
-          <button onClick={() => this.props.deleteWord(card.word, this.state.deck)}>X</button>
-        </div>
 
-      )
-    })
     // const searchedWord: string = this.state.currentCard[0].word
     // const definition: string = this.state.currentCard[0].meanings[0].definitions[0].definition
     if (this.props.myDeck === undefined) {
+      const cardsToDisplay = this.state.deck.cards.map(card => {
+        return (
+          <div>
+            <p>{card.word}</p>
+            <button onClick={() => this.deleteWord(card.word)}>X</button>
+          </div>
+        )
+      })
       return (
         <div>
         <Link to="/my-decks">My Decks</Link>
@@ -183,6 +192,14 @@ class CreateDeck extends React.Component<MyProps, State> {
         </div>
       ) 
     } else if (this.props.myDeck) {
+      const cardsToDisplay = this.state.deck.cards.map(card => {
+        return (
+          <div>
+            <p>{card.word}</p>
+            <button onClick={() => this.props.deleteWord(card.word, this.state.deck)}>X</button>
+          </div>
+        )
+      })
       return (
         <div>
         <Link to="/my-decks">My Decks</Link>
