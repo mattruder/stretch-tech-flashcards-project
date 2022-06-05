@@ -1,0 +1,11 @@
+.create-deck-area, .edit-deck-area {
+  display: flex;
+  flex-direction: column;
+  height: 24vh;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.link-create-deck-from-my-decks {
+  margin-left: 22vw;
+}

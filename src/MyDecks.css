@@ -1,0 +1,9 @@
+.my-decks {
+  display: flex;
+  flex-direction: row;
+  margin: 2vh;
+}
+
+a {
+  margin: 11vh;
+}

@@ -1,33 +1,9 @@
-import React, { Component } from 'react'
-// import './Game.css'
-//
-// class Game extends React.Component {
-//   constructor() {
-//     super()
-//     this.state = {
-//
-//     }
-//   }
-//
-// render() {
-//   return (
-//     <h1>Game</h1>
-//   )
-// }
-//
-//
-//
-// }
-//
-//
-//
-//
-// export default Game
+import React from 'react'
 
-function blah() {
+const Game = () => {
   return (
-    <h1>nothing</h1>
+    <div></div>
   )
 }
 
-export default blah
+export default {}
