@@ -6,7 +6,7 @@ function Nav() {
   return (
     <Link to='/'>
         <nav className='nav-bar'>
-            What the Deck...?
+            <h1 className='header'>What the Deck...?</h1>
         </nav>
     </Link>
   )

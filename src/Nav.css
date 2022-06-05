@@ -1,0 +1,10 @@
+.nav-bar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 6vh;
+}
+
+h1 {
+  size: 3vh;
+  margin-top: 2vh;
+}

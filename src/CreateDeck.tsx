@@ -174,8 +174,10 @@ class CreateDeck extends React.Component<MyProps, State> {
         )
       })
       return (
+
         <div className="create-deck-area">
         <Link to="/my-decks" id="myDecksLinkInCreate">My Decks</Link>
+
         <form>
           <input type="text" className="field-word-search" value={this.state.search} placeholder="Search For A Word"  onChange={event => this.handleChange(event)} />
           <input type='text' className="field-name-deck" value={this.state.deck.name} placeholder="Name this deck"  onChange={event => this.handleNameChange(event)}/>
@@ -201,8 +203,10 @@ class CreateDeck extends React.Component<MyProps, State> {
         )
       })
       return (
+
         <div className="edit-deck-area">
         <Link to="/my-decks" id="myDecksLinkInEdit">My Decks</Link>
+
         <form>
           <input type="text" className="field-word-search" value={this.state.search} placeholder="Search For A Word" onChange={event => this.handleChange(event)} />
           <h1>{this.state.deck.name}</h1>
@@ -215,7 +219,9 @@ class CreateDeck extends React.Component<MyProps, State> {
           <button className="button-add-card"  onClick={ (event) => this.addCardToDeck(this.state.currentCard, event)}>Add Card</button>
         </div>
         }
+
         <div className="display-cards-container">
+
         {cardsToDisplay}
         </div>
         </div>
