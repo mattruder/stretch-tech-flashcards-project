@@ -34,6 +34,21 @@ describe("Flashcards App", () => {
   it('User should be able to edit a deck by removing and adding cards', () => {
     cy.get('#myDecksLink').click()
     cy.get('#editDeckLink').click()
+    cy.get('#hello').click()
+    cy.get('.display-cards-container').should('not.have.value', "hello")
+    cy.get('.display-cards-container').contains('bye')
+    cy.get('.field-word-search').type('orange')
+    cy.get('.button-word-search').click()
+    cy.get('.button-add-card').click()
+    cy.get('.display-cards-container').contains('orange')
+  })
+
+  it('User should not be able to search for a word if it is not a real word', () => {
+    cy.get('#myDecksLink').click()
+    cy.get('#editDeckLink').click()
+    cy.get('.field-word-search').type('asdfasdfasdf')
+    cy.get('.button-word-search').click()
+    cy.get('.edit-deck-area').should('not.have.value', 'asdfasdfasdf')
   })
 
 })

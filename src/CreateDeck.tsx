@@ -174,7 +174,7 @@ class CreateDeck extends React.Component<MyProps, State> {
         )
       })
       return (
-        <div>
+        <div className="create-deck-area">
         <Link to="/my-decks">My Decks</Link>
         <form>
           <input type="text" className="field-word-search" value={this.state.search} placeholder="Search For A Word"  onChange={event => this.handleChange(event)} />
@@ -183,7 +183,7 @@ class CreateDeck extends React.Component<MyProps, State> {
           <AddDeckButton addDeck={this.props.addDeck} deck={this.state.deck} />
         </form>
         {this.state.isWord &&
-        <div>
+        <div className="add-card-container">
           <Card key={this.state.currentCard.word} word={this.state.currentCard.word} definition={this.state.currentCard.definition} />
           <button className="button-add-card"  onClick={ (event) => this.addCardToDeck(this.state.currentCard, event)}>Add Card</button>
         </div>
@@ -196,12 +196,12 @@ class CreateDeck extends React.Component<MyProps, State> {
         return (
           <div>
             <p>{card.word}</p>
-            <button className="button-delete" onClick={() => this.props.deleteWord(card.word, this.state.deck)}>X</button>
+            <button className="button-delete" id={card.word} onClick={() => this.props.deleteWord(card.word, this.state.deck)}>X</button>
           </div>
         )
       })
       return (
-        <div>
+        <div className="edit-deck-area">
         <Link to="/my-decks">My Decks</Link>
         <form>
           <input type="text" className="field-word-search" value={this.state.search} placeholder="Search For A Word" onChange={event => this.handleChange(event)} />
@@ -210,12 +210,14 @@ class CreateDeck extends React.Component<MyProps, State> {
           <AddDeckButton addDeck={this.props.addDeck} deck={this.state.deck} />
         </form>
         {this.state.isWord &&
-        <div>
+        <div className="add-card-container">
           <Card key={this.state.currentCard.word} word={this.state.currentCard.word} definition={this.state.currentCard.definition} />
           <button className="button-add-card"  onClick={ (event) => this.addCardToDeck(this.state.currentCard, event)}>Add Card</button>
         </div>
         }
+        <div className="display-cards-container">
         {cardsToDisplay}
+        </div>
         </div>
       )
     }
