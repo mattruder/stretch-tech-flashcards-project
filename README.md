@@ -1,46 +1,82 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Stretch Tech
 
-## Available Scripts
+- [Introduction](#introduction)
+- [Learning Goals](#learning-goals)
+- [Technologies](#technologies)
+- [Features](#features)
+- [Page Demo](#page-demo)
+- [Future Extensions](#possible-future-extensions)
+- [Set Up](#set-up)
+- [Project Spec](#project-spec)
+- [GitHub Repo](#github-repo)
+- [Deploy Link](#deploy-link)
+- [Team](#team)
 
-In the project directory, you can run:
 
-### `npm start`
+## Introduction
+What the Deck...? is a flashcard building app utilizing a dictionary API.  It is built using React with Typescript. It is E2E tested w/ cypress. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Learning Goals
+- To quickly learn and implement a new technology into an application that is not part of Turing curriculum
+- Experience 
+- Utilize React Router to create a multi-page UX.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies
 
-### `npm run build`
+  - React
+  - TypeScript
+  - CSS
+  - Cypress
+  - Router
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Features
+- Upon load, the user can view their decks or create a deck
+- When the user clicks 'make a deck' they are brought to a deck building page where they can search for words.
+- The user can choose to add a word, with the definition to a deck, name the deck, and save the deck.
+- The user can then view all decks, select and edit that deck by adding more, or removing cards.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Page Demo
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![What the Deck...?]()
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Possible Future Extensions
+- Add game functionality that would allow the user to play a game of flashcards.
+- Add additional API's for more interesting/fun card creation
+- Allow multiple users
+- Continue CSS styling
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Set Up
+1. Fork and clone this repo.
+2. Read this README thoroughly.
+3. Type `cd <repo name>` to move into the root directory.
+4. Run `npm install` to install necessary dependencies.
+5. Run `npm start`.
+6. Go to URL shown in terminal, usually `http://localhost:3000/`
+7. Run Cypress tests with `npm run cypress`
+8. Make a deck
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Project Spec
+- The spec for this project can be found [here](https://frontend.turing.edu/projects/module-3/stretch.html)
+
+
+## Project GitHub Repo
+- The project repo can be found [here](https://github.com/mattruder/stretch-tech-flashcards-project)
+
+
+## Deploy Link
+- The project is deployed [here](https://fathomless-plateau-75788.herokuapp.com/)
+
+
+## Team
+- [Matt R](https://github.com/mattruder)
+- [Nick O](https://github.com/orlov-n)
+- [Rio F](https://github.com/friotious)
+
