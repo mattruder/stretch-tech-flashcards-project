@@ -66,7 +66,7 @@ What the Deck...? is a flashcard building app utilizing a dictionary API.  It is
 
 
 ## Deploy Link
-- The project is deployed [here](https://fathomless-plateau-75788.herokuapp.com/)
+- The project is deployed [here](https://warm-atoll-04071.herokuapp.com/)
 
 
 ## Team
